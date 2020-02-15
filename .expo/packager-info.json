@@ -1,0 +1,9 @@
+{
+  "devToolsPort": 19002,
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 40510,
+  "expoServerNgrokUrl": "https://ci-3gx.anonymous.demoplanets.exp.direct",
+  "packagerNgrokUrl": "https://packager.ci-3gx.anonymous.demoplanets.exp.direct",
+  "ngrokPid": 40521
+}
