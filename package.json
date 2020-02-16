@@ -43,11 +43,6 @@
     "lint-staged": "^10.0.1",
     "prettier": "^1.19.1"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "jest": {
     "preset": "react-native"
   },
