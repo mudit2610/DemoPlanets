@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 import Cell from '../components/DetailCell';
+import { useSelector, useDispatch } from 'react-redux';
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -12,6 +14,15 @@ const styles = StyleSheet.create({
 export default function ListScreen({ navigation }) {
 
     const { listData } = navigation.state.params;
+
+    const allData = useSelector(state => {
+        return state.detail.data
+    });
+    const listDataDetails = listData.reduce((acu, url) => {
+        const data = allData[url];
+        if (data) { acu[url] = data; }
+        return acu;
+    }, {});
     return (
         <View style={styles.container}>
             {listData.length > 0 ? (
@@ -20,7 +31,8 @@ export default function ListScreen({ navigation }) {
 
                     data={listData}
                     renderItem={({ item, index }) => {
-                        return <Cell url={item} />
+
+                        return <Cell data={listDataDetails[item]} url={item} />
 
                     }}
                     showsVerticalScrollIndicator={false}

@@ -6,6 +6,8 @@ import DetailText from './DetailText';
 import { useSelector, useDispatch } from 'react-redux';
 import theme from '../utils/theme';
 import Screen from '../constants/Layout';
+import { useNavigation } from 'react-navigation-hooks';
+import { pure } from 'recompose';
 
 const styles = StyleSheet.create({
     container: {
@@ -25,15 +27,14 @@ const DetailCell = ({ url, data }) => {
     const [dataLocal, setDataLocal] = useState(data);
     const [displayMessage, setDisplayMessage] = useState("Loading...");
     const [isLoading, setIsLoading] = useState(false);
+    const { push } = useNavigation();
 
-    const detailData = useSelector(state => {
-        return state.detail.data[url]
-    });
+
     const dispatch = useDispatch();
 
 
     useEffect(() => {
-        if (!detailData && url) {
+        if (!data && url) {
             setIsLoading(true);
 
             dispatch(getDetail(url)).then(([data]) => {
@@ -44,22 +45,19 @@ const DetailCell = ({ url, data }) => {
                 setIsLoading(false);
             });
         }
-        else if (detailData) {
-            //data found in redux store
-            setDataLocal(detailData);
-        }
-
     }, [])
 
 
     return (
         <View style={[styles.container]}>
 
-            {isLoading ? (<View> <ActivityIndicator size="large" color={theme.colors.loading} />
-                <Text style={{ textAlign: "center" }}>{displayMessage}</Text>
-            </View>) : dataLocal ? <DetailText data={dataLocal} /> : <Text style={{ textAlign: "center" }}>{displayMessage}</Text>}
+            {isLoading ? (<View>
+                <ActivityIndicator size="large" color={theme.colors.loading} />
+                <Text style={{ textAlign: "center" }}>{`${displayMessage}`}</Text>
+            </View>) : dataLocal ? <DetailText data={dataLocal} push={push} /> : <Text style={{ textAlign: "center" }}>{`${displayMessage}`}</Text>}
 
         </View>
     );
 };
-export default DetailCell;
+export default pure(DetailCell);
+

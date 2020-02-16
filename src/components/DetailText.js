@@ -20,37 +20,76 @@ const styles = StyleSheet.create({
 
 });
 
-const DetailText = ({ data }) => {
-    const { push } = useNavigation();
-
-    const keys = Object.keys(data);
-    const onSelect = () => { };
-    return (
-        <View style={[styles.container, { flexDirection: "column", paddingLeft: 20, paddingRight: 20 }]}>
-            {keys.map((key) => {
-
-                return (<React.Fragment key={`${data.url}${key}`}>{Array.isArray(data[key]) ? (<Button
-                    title={`${key}(${data[key].length}) `}
-                    onPress={() => {
-                        if (data[key].length <= 0) {
-                            alert("No data to show")
-                        }
-                        else {
-                            push("ListScreen", { listData: [...data[key]], title: `${key}` })
-
-                        }
-                    }}
-                />) : (<View style={{ flexDirection: "row" }}><Text style={{ fontWeight: "bold" }}>{`${key} : `}</Text><Text style={{ flex: 1, flexWrap: 'wrap' }}>{`${data[key]} `}</Text></View>)
 
 
-                }
-                </React.Fragment>
-                )
-            })}
+class DetailText extends React.PureComponent {
 
-        </View>
-    );
-};
+    render() {
+        const { push, data } = this.props;
+        const keys = Object.keys(data);
+
+        return (
+
+            <View style={[styles.container, { flexDirection: "column", paddingLeft: 20, paddingRight: 20 }]}>
+                {keys.map((key) => {
+
+                    return (<React.Fragment key={`${data.url}${key}`}>{Array.isArray(data[key]) ? <Button
+                        title={`${key}(${data[key].length}) `}
+                        onPress={() => {
+                            if (data[key].length <= 0) {
+                                alert("No data to show")
+                            }
+                            else {
+                                push("ListScreen", { listData: [...data[key]], title: `${key}` })
+
+
+                            }
+                        }}
+                    /> : <View style={{ flexDirection: "row" }}>
+                            <Text style={{ fontWeight: "bold" }}>{`${key} : `} </Text>
+                            <Text style={{ flex: 1, flexWrap: 'wrap' }}>{`${data[key]} `}</Text>
+                        </View>}</React.Fragment>)
+                })}
+            </View>
+
+        )
+    }
+}
+// const DetailText2 = ({ data }) => {
+//     const { push } = useNavigation();
+
+//     const keys = Object.keys(data);
+//     const onSelect = () => { };
+//     return (
+//         <View style={[styles.container, { flexDirection: "column", paddingLeft: 20, paddingRight: 20 }]}>
+//             {keys.map((key) => {
+
+//                 return (<React.Fragment key={`${data.url}${key}`}>{Array.isArray(data[key]) ? (<Button
+//                     title={`${key}(${data[key].length}) `}
+//                     onPress={() => {
+//                         if (data[key].length <= 0) {
+//                             alert("No data to show")
+//                         }
+//                         else {
+//                             push("ListScreen", { listData: [...data[key]], title: `${key}` })
+
+
+//                         }
+//                     }}
+//                 />) :
+//                     (<View style={{ flexDirection: "row" }}>
+//                         <Text style={{ fontWeight: "bold" }}>{`${key} : `} </Text>
+//                         <Text style={{ flex: 1, flexWrap: 'wrap' }}>{`${data[key]} `}</Text>
+//                     </View>)
+
+//                 }
+//                 </React.Fragment>
+//                 )
+//             })}
+
+//         </View>
+//     );
+// };
 export default DetailText;
 
 
